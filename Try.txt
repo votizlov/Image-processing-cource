@@ -1,0 +1,220 @@
+//Зашумляющая функция
+private Bitmap ColorNoise(Bitmap bm, double s)
+{
+Bitmap bm1 = new Bitmap(bm.Width, bm.Height);
+//d - уровень шума (200)
+//double s = 10;
+int d;
+Random rnd = new Random();
+
+
+for (int y = 0; y < bm.Height; ++y)
+for (int x = 0; x < bm.Width; ++x)
+{
+
+Color col = bm.GetPixel(x, y);
+int r = col.R,
+g = col.G,
+b = col.B;
+
+d = (int)Math.Round(rnd.NextDouble() * 2 * s - s);
+r += d;
+d = (int)Math.Round(rnd.NextDouble() * 2 * s - s);
+g += d;
+d = (int)Math.Round(rnd.NextDouble() * 2 * s - s);
+b += d;
+if (r < 0) r = 0; else if (r > 255) r = 255;
+if (g < 0) g = 0; else if (g > 255) g = 255;
+if (b < 0) b = 0; else if (b > 255) b = 255;
+col = Color.FromArgb(r, g, b);
+bm1.SetPixel(x, y, col);
+}
+//pictureBox1.Image = bm1;
+return bm1;
+}
+//Фильтрующая функция
+private Bitmap Gays(double[,] m1, Bitmap bmp)
+{
+//bmp = (Bitmap)pictureBox1.Image
+Bitmap bmp1 = new Bitmap(bmp.Width, bmp.Height);
+Random rnd = new Random();
+//от 2 до w-2
+for (int y = 2; y < bmp.Height - 2; ++y)
+{
+for (int x = 2; x < bmp.Width - 2; ++x)
+{
+int r, g, b;
+double rs, gs, bs;
+rs = bs = gs = 0;
+for (int j = y - 2, k = 0; j < y + 2; ++j, ++k)
+{
+for (int i = x - 2, n = 0; i < x + 2; ++i, ++n)
+{
+Color c = bmp.GetPixel(i, j);
+r = c.R; g = c.G; b = c.B;
+rs += r * m1[n, k];
+gs += g * m1[n, k];
+bs += b * m1[n, k];
+}
+}
+r = (int)Math.Round(rs);
+g = (int)Math.Round(gs);
+b = (int)Math.Round(bs);
+if (r < 0) r = 0; else if (r > 255) r = 255;
+if (g < 0) g = 0; else if (g > 255) g = 255;
+if (b < 0) b = 0; else if (b > 255) b = 255;
+
+
+Color c1 = Color.FromArgb(r, g, b);
+bmp1.SetPixel(x, y, c1);
+}
+}
+//pictureBox2.Image = bmp1;
+return bmp1;
+}
+
+
+//Сравнивающая функция
+private double CheckBitmaps(Bitmap bm, Bitmap bm1)
+{
+double sumR = 0;
+double sumG = 0;
+double sumB = 0;
+
+for (int y = 0; y < bm.Height; ++y)
+{
+for (int x = 0; x < bm.Width; ++x)
+{
+
+Color c1 = bm.GetPixel(x, y);
+Color c2 = bm1.GetPixel(x, y);
+sumR += Math.Abs(c1.R - c2.R);
+sumG += Math.Abs(c1.G - c2.G);
+sumB += Math.Abs(c1.B - c2.B);
+}
+}
+double s = (sumR + sumG + sumB) / (3 * bm.Width * bm.Height);
+return s;
+}
+
+
+private void button7_Click(object sender, EventArgs e)
+{
+// создать матрицу 6:6
+// TODO: Заполнить ее результатами проверок при разном уровне шума и разном фильтре
+
+//фильтрующие матрицы
+double w11 = 0.0;
+double w12 = 0.07;
+double w13 = 0.44;
+
+double w21 = 0.005;
+double w22 = 0.08;
+double w23 = 0.27;
+
+double w31 = 0.02;
+double w32 = 0.06;
+double w33 = 0.15;
+
+double w41 = 0.02;
+double w42 = 0.06;
+double w43 = 0.1;
+
+double w51 = 0.03;
+double w52 = 0.45;
+double w53 = 0.06;
+
+double w61 = 0.025;
+double w62 = 0.06;
+double w63 = 0.06;
+
+
+double[,] m1 = { { w11, w11, w11, w11, w11 }, { w11, w12, w12, w12, w11 }, { w11, w12, w13, w12, w11 }, { w11, w12, w12, w12, w11 }, { w11, w11, w11, w11, w11 } };
+double[,] m2 = { { w21, w21, w21, w21, w21 }, { w21, w22, w22, w22, w21 }, { w21, w22, w23, w22, w21 }, { w21, w22, w22, w22, w21 }, { w21, w21, w21, w21, w21 } };
+double[,] m3 = { { w31, w31, w31, w31, w31 }, { w31, w32, w32, w32, w31 }, { w31, w32, w33, w32, w31 }, { w31, w32, w32, w32, w31 }, { w31, w31, w31, w31, w31 } };
+double[,] m4 = { { w41, w41, w41, w41, w41 }, { w41, w42, w42, w42, w41 }, { w41, w42, w43, w42, w41 }, { w41, w42, w42, w42, w41 }, { w41, w41, w41, w41, w41 } };
+double[,] m5 = { { w51, w51, w51, w51, w51 }, { w51, w52, w52, w52, w51 }, { w51, w52, w53, w52, w51 }, { w51, w52, w52, w52, w51 }, { w51, w51, w51, w51, w51 } };
+double[,] m6 = { { w61, w61, w61, w61, w61 }, { w61, w62, w62, w62, w61 }, { w61, w62, w63, w62, w61 }, { w61, w62, w62, w62, w61 }, { w61, w61, w61, w61, w61 } };
+
+
+//уровни шума
+int[] s = { 10, 60, 110, 160, 210, 260};
+
+//массив с ответами
+double[,] answer = new double[6, 6];
+int rows = answer.GetUpperBound(0) + 1;
+int columns = answer.Length / rows;
+
+
+Bitmap bm = new Bitmap("photo.jpg");
+
+for (int i
+ 
+= 0; i <6; i++)
+{
+Bitmap bm2 = (Bitmap)bm.Clone();
+bm2 = ColorNoise(bm2, s[i]);
+bm2 = Gays(m1, bm2);
+answer[0, i] = CheckBitmaps(bm, bm2);
+}
+for (int i = 0; i < 6; i++)
+{
+Bitmap bm2 = (Bitmap)bm.Clone();
+bm2 = ColorNoise(bm2, s[i]);
+bm2 = Gays(m2, bm2);
+answer[1, i] = CheckBitmaps(bm, bm2);
+}
+for (int i = 0; i < 6; i++)
+{
+Bitmap bm2 = (Bitmap)bm.Clone();
+bm2 = ColorNoise(bm2, s[i]);
+bm2 = Gays(m3, bm2);
+answer[2, i] = CheckBitmaps(bm, bm2);
+}
+for (int i = 0; i < 6; i++)
+{
+Bitmap bm2 = (Bitmap)bm.Clone();
+bm2 = ColorNoise(bm2, s[i]);
+bm2 = Gays(m4, bm2);
+answer[3, i] = CheckBitmaps(bm, bm2);
+}
+for (int i = 0; i < 6; i++)
+{
+Bitmap bm2 = (Bitmap)bm.Clone();
+bm2 = ColorNoise(bm2, s[i]);
+bm2 = Gays(m5, bm2);
+answer[4, i] = CheckBitmaps(bm, bm2);
+}
+for (int i = 0; i < 6; i++)
+{
+Bitmap bm2 = (Bitmap)bm.Clone();
+bm2 = ColorNoise(bm2, s[i]);
+bm2 = Gays(m6, bm2);
+answer[5, i] = CheckBitmaps(bm, bm2);
+}
+
+//и в циклы добавить клонирование зашумленной фотки и использование рекурсивного фильтра
+//сделать 12 столбцов : 6 для обычного и 6 для рекрсивного фильтра
+
+//вывод таблички
+for(int i = 0; i < 6; i++)
+{
+textBox1.AppendText(Convert.ToString(i));
+textBox1.AppendText(" :");
+for (int j = 0; j < 6; j++)
+{
+textBox1.AppendText(Convert.ToString(answer[i, j]));
+textBox1.AppendText(" ");
+}
+textBox1.AppendText("\n");
+}
+
+
+
+
+//////////TODO Gays
+
+
+
+
+}

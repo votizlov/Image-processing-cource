@@ -1,0 +1,67 @@
+Z:\ipBak20\ip\bin\Debug\ip.exe
+Z:\ipBak20\ip\bin\Debug\ip.pdb
+Z:\ipBak20\ip\obj\x86\Debug\ip.Form1.resources
+Z:\ipBak20\ip\obj\x86\Debug\ip.Properties.Resources.resources
+Z:\ipBak20\ip\obj\x86\Debug\ip.exe
+Z:\ipBak20\ip\obj\x86\Debug\ip.pdb
+Z:\ipBak20\ip\obj\x86\Debug\ip.csprojResolveAssemblyReference.cache
+Z:\ipBak20\ip\obj\x86\Debug\ip.csproj.GenerateResource.Cache
+Z:\ipBak21\ip\obj\x86\Debug\ip.exe
+Z:\ipBak21\ip\obj\x86\Debug\ip.pdb
+Z:\ipBak21\ip\bin\Debug\ip.exe
+Z:\ipBak21\ip\bin\Debug\ip.pdb
+Z:\ipBak21\ip\obj\x86\Debug\ip.csprojResolveAssemblyReference.cache
+Z:\ipBak21\ip\obj\x86\Debug\ip.Form1.resources
+Z:\ipBak21\ip\obj\x86\Debug\ip.Properties.Resources.resources
+Z:\ipBak21\ip\obj\x86\Debug\ip.csproj.GenerateResource.Cache
+I:\ip\obj\x86\Debug\ip.exe
+I:\ip\obj\x86\Debug\ip.pdb
+I:\ip\bin\Debug\ip.exe
+I:\ip\bin\Debug\ip.pdb
+I:\ip\obj\x86\Debug\ip.Form1.resources
+I:\ip\obj\x86\Debug\ip.Properties.Resources.resources
+I:\ip\obj\x86\Debug\ip.csproj.GenerateResource.cache
+I:\ip\obj\x86\Debug\ip.csprojResolveAssemblyReference.cache
+\\csfs\home$\grigorenko_v_r\Profile\Desktop\ip\obj\x86\Debug\ip.exe
+\\csfs\home$\grigorenko_v_r\Profile\Desktop\ip\obj\x86\Debug\ip.pdb
+\\csfs\home$\grigorenko_v_r\Profile\Desktop\ip\bin\Debug\ip.exe
+\\csfs\home$\grigorenko_v_r\Profile\Desktop\ip\bin\Debug\ip.pdb
+\\csfs\home$\grigorenko_v_r\Profile\Desktop\ip\obj\x86\Debug\ip.csprojResolveAssemblyReference.cache
+\\csfs\home$\grigorenko_v_r\Profile\Desktop\ip\obj\x86\Debug\ip.Form1.resources
+\\csfs\home$\grigorenko_v_r\Profile\Desktop\ip\obj\x86\Debug\ip.Properties.Resources.resources
+\\csfs\home$\grigorenko_v_r\Profile\Desktop\ip\obj\x86\Debug\ip.csproj.GenerateResource.Cache
+D:\ip\obj\x86\Debug\ip.csprojAssemblyReference.cache
+D:\ip\obj\x86\Debug\ip.Form1.resources
+D:\ip\obj\x86\Debug\ip.Properties.Resources.resources
+D:\ip\obj\x86\Debug\ip.csproj.GenerateResource.cache
+D:\ip\obj\x86\Debug\ip.csproj.CoreCompileInputs.cache
+D:\ip\obj\x86\Debug\ip.exe
+D:\ip\bin\Debug\ip.exe
+D:\ip\bin\Debug\ip.pdb
+D:\ip\obj\x86\Debug\ip.pdb
+C:\Users\vrigo\OneDrive\Рабочий стол\ip\bin\Debug\ip.exe
+C:\Users\vrigo\OneDrive\Рабочий стол\ip\bin\Debug\ip.pdb
+C:\Users\vrigo\OneDrive\Рабочий стол\ip\obj\x86\Debug\ip.csprojAssemblyReference.cache
+C:\Users\vrigo\OneDrive\Рабочий стол\ip\obj\x86\Debug\ip.Form1.resources
+C:\Users\vrigo\OneDrive\Рабочий стол\ip\obj\x86\Debug\ip.Properties.Resources.resources
+C:\Users\vrigo\OneDrive\Рабочий стол\ip\obj\x86\Debug\ip.csproj.GenerateResource.cache
+C:\Users\vrigo\OneDrive\Рабочий стол\ip\obj\x86\Debug\ip.csproj.CoreCompileInputs.cache
+C:\Users\vrigo\OneDrive\Рабочий стол\ip\obj\x86\Debug\ip.exe
+C:\Users\vrigo\OneDrive\Рабочий стол\ip\obj\x86\Debug\ip.pdb
+C:\Users\Дмитрий\Documents\ip\bin\Debug\ip.exe
+C:\Users\Дмитрий\Documents\ip\bin\Debug\ip.pdb
+C:\Users\Дмитрий\Documents\ip\obj\x86\Debug\ip.csprojAssemblyReference.cache
+C:\Users\Дмитрий\Documents\ip\obj\x86\Debug\ip.Form1.resources
+C:\Users\Дмитрий\Documents\ip\obj\x86\Debug\ip.Properties.Resources.resources
+C:\Users\Дмитрий\Documents\ip\obj\x86\Debug\ip.csproj.GenerateResource.cache
+C:\Users\Дмитрий\Documents\ip\obj\x86\Debug\ip.csproj.CoreCompileInputs.cache
+C:\Users\Дмитрий\Documents\ip\obj\x86\Debug\ip.exe
+C:\Users\Дмитрий\Documents\ip\obj\x86\Debug\ip.pdb
+C:\Users\User\Downloads\ip\ip\bin\Debug\ip.exe
+C:\Users\User\Downloads\ip\ip\bin\Debug\ip.pdb
+C:\Users\User\Downloads\ip\ip\obj\x86\Debug\ip.csprojResolveAssemblyReference.cache
+C:\Users\User\Downloads\ip\ip\obj\x86\Debug\ip.Form1.resources
+C:\Users\User\Downloads\ip\ip\obj\x86\Debug\ip.Properties.Resources.resources
+C:\Users\User\Downloads\ip\ip\obj\x86\Debug\ip.csproj.GenerateResource.Cache
+C:\Users\User\Downloads\ip\ip\obj\x86\Debug\ip.exe
+C:\Users\User\Downloads\ip\ip\obj\x86\Debug\ip.pdb
