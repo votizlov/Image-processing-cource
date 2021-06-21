@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -11,6 +12,7 @@ namespace ip
 {
     public partial class Form1 : Form
     {
+        OpenFileDialog ofd = new OpenFileDialog();
         public Form1()
         {
             InitializeComponent();
@@ -18,12 +20,19 @@ namespace ip
 
         private void button1_Click(object sender, EventArgs e)
         {
-            Bitmap bm = new Bitmap("256x256.png");
-            pictureBox1.Image = bm;
+            if (ofd.ShowDialog() == DialogResult.OK)
+            {
+                Bitmap bm = (Bitmap)Bitmap.FromFile(ofd.FileName);
+                pictureBox1.Image = bm;
+            }
         }
 
         private void button2_Click(object sender, EventArgs e)
         {
+            var t = (Bitmap) pictureBox1.Image;
+            MedianFiltering(t);
+            pictureBox1.Image = t;
+            /*
             Bitmap bm = (Bitmap) pictureBox1.Image,
                 bm1 = new Bitmap(bm.Width, bm.Height);
             for (int y = 0; y < bm.Height; ++y)
@@ -37,6 +46,7 @@ namespace ip
             }
 
             pictureBox2.Image = bm1;
+            */
         }
 
         private void button3_Click(object sender, EventArgs e)
@@ -312,6 +322,39 @@ namespace ip
             return bm1;
         }
 
+        public Bitmap ImpulseNoise(Bitmap bm, double s)
+        {
+            Bitmap bm1 = new Bitmap(bm.Width, bm.Height);
+            //d - уровень шума (200)
+            //double s = 10;
+            int d;
+            Random rnd = new Random();
+
+
+            for (int y = 0; y < bm.Height; ++y)
+            for (int x = 0; x < bm.Width; ++x)
+            {
+                Color col = bm.GetPixel(x, y);
+
+                if (rnd.NextDouble() > 0.5)
+                {
+                    if (rnd.NextDouble() > 0.5)
+                    {
+                        col = Color.FromArgb(255, 255, 255);
+                    }
+                    else
+                    {
+                        col = Color.FromArgb(0, 0, 0);
+                    }
+                }
+
+                bm1.SetPixel(x, y, col);
+            }
+
+            //pictureBox1.Image = bm1;
+            return bm1;
+        }
+
         //Фильтр
         private Bitmap Gays(double[,] m1, Bitmap bmp)
         {
@@ -343,6 +386,60 @@ namespace ip
                     r = (int) Math.Round(rs);
                     g = (int) Math.Round(gs);
                     b = (int) Math.Round(bs);
+                    if (r < 0) r = 0;
+                    else if (r > 255) r = 255;
+                    if (g < 0) g = 0;
+                    else if (g > 255) g = 255;
+                    if (b < 0) b = 0;
+                    else if (b > 255) b = 255;
+
+
+                    Color c1 = Color.FromArgb(r, g, b);
+                    bmp1.SetPixel(x, y, c1);
+                }
+            }
+
+            //pictureBox2.Image = bmp1;
+            return bmp1;
+        }
+        
+        private Bitmap Median(double[,] m1, Bitmap bmp)
+        {
+            //bmp = (Bitmap)pictureBox1.Image
+            Bitmap bmp1 = new Bitmap(bmp.Width, bmp.Height);
+            Random rnd = new Random();
+            //от 2 до w-2
+            for (int y = 2; y < bmp.Height - 2; ++y)
+            {
+                for (int x = 2; x < bmp.Width - 2; ++x)
+                {
+                    int r, g, b;
+                    double rs, gs, bs;
+                    int counter = 0;
+                    int[] rr = new int[25];
+                    int[] gg = new int[25];
+                    int[] bb = new int[25];
+                    int count = 0;
+                    for (int j = y - 2, k = 0; j <= y + 2; ++j, ++k)
+                    {
+                        for (int i = x - 2, n = 0; i <= x + 2; ++i, ++n)
+                        {
+                            Color c = bmp.GetPixel(i, j);
+                            if(m1[n,k]<0.5)
+                                continue;
+                            rr[count] = c.R;
+                            gg[count] = c.G;
+                            bb[count] = c.B;
+                            count++;
+                        }
+                    }
+                    Array.Sort(rr);
+                    Array.Sort(bb);
+                    Array.Sort(gg);
+
+                    r = (int) Math.Round((double)rr[12]);
+                    g = (int) Math.Round((double)gg[12]);
+                    b = (int) Math.Round((double)bb[12]);
                     if (r < 0) r = 0;
                     else if (r > 255) r = 255;
                     if (g < 0) g = 0;
@@ -465,8 +562,8 @@ namespace ip
 
             double[,] m1 =
             {
-                {w11, w11, w11, w11, w11}, {w11, w12, w12, w12, w11}, {w11, w12, w13, w12, w11},
-                {w11, w12, w12, w12, w11}, {w11, w11, w11, w11, w11}
+                {1,1, 1, 1,1},  {1,1, 1, 1,1}, {1,1,1,1,1},
+                {1,1, 1, 1,1},  {1,1, 1, 1,1}
             };
             double[,] m2 =
             {
@@ -512,17 +609,20 @@ namespace ip
             for (int i = 0; i < 6; i++)
             {
                 Bitmap bm2 = (Bitmap) bm.Clone();
-                bm2 = ColorNoise(bm2, s[i]);
-                bm2 = GaysRecursive(m1, bm2);
-                answer[0, i] = CheckBitmaps(bm, bm2);
-            }
+                bm2 = ImpulseNoise(bm2, s[i]);//ImpulseNoise for Median, ColorNoise for Gays & GaysRecursive
+                pictureBox1.Image = bm2;
+                bm2 = Median(m1, bm2);
+                pictureBox2.Image = bm2;
+                //answer[0, i] = CheckBitmaps(bm, bm2);
+            }//also for gays you need to uncomment following block
+            /* 
             
             label1.Text = "2/6";
             for (int i = 0; i < 6; i++)
             {
                 Bitmap bm2 = (Bitmap) bm.Clone();
                 bm2 = ColorNoise(bm2, s[i]);
-                bm2 = GaysRecursive(m2, bm2);
+                bm2 = Median(m2, bm2);
                 answer[1, i] = CheckBitmaps(bm, bm2);
             }
             label1.Text = "3/6";
@@ -530,7 +630,7 @@ namespace ip
             {
                 Bitmap bm2 = (Bitmap) bm.Clone();
                 bm2 = ColorNoise(bm2, s[i]);
-                bm2 = GaysRecursive(m3, bm2);
+                bm2 = Median(m3, bm2);
                 answer[2, i] = CheckBitmaps(bm, bm2);
             }
             label1.Text = "4/6";
@@ -538,7 +638,7 @@ namespace ip
             {
                 Bitmap bm2 = (Bitmap) bm.Clone();
                 bm2 = ColorNoise(bm2, s[i]);
-                bm2 = GaysRecursive(m4, bm2);
+                bm2 = Median(m4, bm2);
                 answer[3, i] = CheckBitmaps(bm, bm2);
             }
             label1.Text = "5/6";
@@ -546,7 +646,7 @@ namespace ip
             {
                 Bitmap bm2 = (Bitmap) bm.Clone();
                 bm2 = ColorNoise(bm2, s[i]);
-                bm2 = GaysRecursive(m5, bm2);
+                bm2 = Median(m5, bm2);
                 answer[4, i] = CheckBitmaps(bm, bm2);
             }
             label1.Text = "6/6";
@@ -554,7 +654,7 @@ namespace ip
             {
                 Bitmap bm2 = (Bitmap) bm.Clone();
                 bm2 = ColorNoise(bm2, s[i]);
-                bm2 = GaysRecursive(m6, bm2);
+                bm2 = Median(m6, bm2);
                 answer[5, i] = CheckBitmaps(bm, bm2);
             }
 
@@ -573,6 +673,82 @@ namespace ip
                 }
 
                 textBox1.AppendText("\n");
+            }*/
+        }
+        
+        
+        
+        private Bitmap CreateNonIndexedImage(Image src)
+        {
+            Bitmap newBmp = new Bitmap(src.Width, src.Height, System.Drawing.Imaging.PixelFormat.Format32bppArgb);
+
+            using (Graphics gfx = Graphics.FromImage(newBmp)) {
+                gfx.DrawImage(src, 0, 0);
+            }
+
+            return newBmp;
+        }
+        
+        public static void MedianFiltering(Bitmap bm)
+        {/*
+            Bitmap newBmp = new Bitmap(bm.Width, bm.Height, System.Drawing.Imaging.PixelFormat.Format32bppArgb);
+
+            using (Graphics gfx = Graphics.FromImage(newBmp)) {
+                gfx.DrawImage(bm, 0, 0);
+            }
+
+            bm = newBmp;*/
+            
+            List<byte> termsListR = new List<byte>();
+            List<byte> termsListG = new List<byte>();
+            List<byte> termsListB = new List<byte>();
+
+            byte[,] imageR = new byte[bm.Width,bm.Height];
+            byte[,] imageG = new byte[bm.Width,bm.Height];
+            byte[,] imageB = new byte[bm.Width,bm.Height];
+
+            //Convert to Grayscale 
+            for (int i = 0; i < bm.Width; i++)
+            {
+                for (int j = 0; j < bm.Height; j++)
+                {
+                    var c = bm.GetPixel(i, j);
+                    imageR[i, j] = c.R;
+                    imageG[i, j] = c.G;
+                    imageB[i, j] = c.B;
+                }
+            }
+            
+            //applying Median Filtering 
+            for (int i = 0; i <= bm.Width - 3; i++)
+            for (int j = 0; j <= bm.Height - 3; j++)
+            {
+                for (int x = i; x <= i + 2; x++)
+                for (int y = j; y <= j + 2; y++)
+                {
+                    termsListR.Add(imageR[x, y]);
+                    termsListG.Add(imageG[x, y]);
+                    termsListB.Add(imageB[x, y]);
+                }
+                byte[] termsR = termsListR.ToArray();
+                termsListR.Clear();
+                Array.Sort<byte>(termsR);
+                Array.Reverse(termsR);
+                
+                byte[] termsG = termsListG.ToArray();
+                termsListG.Clear();
+                Array.Sort<byte>(termsG);
+                Array.Reverse(termsG);
+                
+                byte[] termsB = termsListB.ToArray();
+                termsListB.Clear();
+                Array.Sort<byte>(termsB);
+                Array.Reverse(termsB);
+                
+                byte R = termsR[4];
+                byte G = termsG[4];
+                byte B = termsB[4];
+                bm.SetPixel(i + 1, j + 1, Color.FromArgb(R, G, B));
             }
         }
 

@@ -59,9 +59,10 @@ C:\Users\Дмитрий\Documents\ip\obj\x86\Debug\ip.exe
 C:\Users\Дмитрий\Documents\ip\obj\x86\Debug\ip.pdb
 C:\Users\User\Downloads\ip\ip\bin\Debug\ip.exe
 C:\Users\User\Downloads\ip\ip\bin\Debug\ip.pdb
-C:\Users\User\Downloads\ip\ip\obj\x86\Debug\ip.csprojResolveAssemblyReference.cache
 C:\Users\User\Downloads\ip\ip\obj\x86\Debug\ip.Form1.resources
 C:\Users\User\Downloads\ip\ip\obj\x86\Debug\ip.Properties.Resources.resources
 C:\Users\User\Downloads\ip\ip\obj\x86\Debug\ip.csproj.GenerateResource.Cache
 C:\Users\User\Downloads\ip\ip\obj\x86\Debug\ip.exe
 C:\Users\User\Downloads\ip\ip\obj\x86\Debug\ip.pdb
+C:\Users\User\Downloads\ip\ip\obj\x86\Debug\ip.csprojAssemblyReference.cache
+C:\Users\User\Downloads\ip\ip\obj\x86\Debug\ip.csproj.CoreCompileInputs.cache
